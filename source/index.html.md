@@ -1,12 +1,13 @@
 ---
-title: API Reference
+title: Contagion User Guide
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - toml
   - shell
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='https://github.com/kentwait/contagion'>Download Contagion</a>
+  - <a href="https://twitter.com/kent">@kent</a>
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -180,6 +181,10 @@ The host network configuration file is a text file that lists the number of adja
 
 The `host_network_path` indicates the location of the host network configuration file. This path can be either an absolute path or the relative path. However, it is recommended to use the absolute path for clarity.
 
+<aside class="notice">
+Use absolute paths to indicate the location of the host network configuration file.
+</aside>
+
 Currently, Contagion uses a static host network and does not use dynamically changing networks.
 
 ## num_sites
@@ -216,7 +221,11 @@ UUPUUPUPUUPPUUPUUPUPPPUU
 PUPUUPUPUPUPPUUUUPPPPPPP
 ```
 
-The `pathogen_path` parameter indicate the location of the pathogen FASTA file 
+The `pathogen_path` parameter indicate the location of the pathogen sequence file. This path can be either an absolute path or the relative path. However, it is recommended to use the absolute path for clarity.
+
+<aside class="notice">
+Use absolute paths to indicate the location of the pathogen sequence file.
+</aside>
 
 ## num_instances
 
