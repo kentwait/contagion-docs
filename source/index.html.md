@@ -19,11 +19,13 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Contagion is a forward genetic simulator designed to model evolution occurring at multiple frames of reference, such as the evolution of viruses and other pathogens.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+There are two ways to set-up a simulation in Contagion: writing down simulation parameters to a configuration file or interactively set-up the simulation using the Contagion command-line interface (Contagion CLI). 
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+Below you can find instructions how to set-up and run simulations in Contagion either by using a configuration file or the Contagion CLI. You can view configuration examples in the dark area to the right, and you can switch between the configuration file or the Contagion CLI guide using the tabs in the top right.
+
+Contagion is free and open-source software written in Go and is distributed under the Apache License. For specific scenarios not currently implemented in the program, users are encouraged to use Contagion as the basis for their simulations. Contagion is built as a set of functional modules that can be readily adapted for many different simulation objectives. For more information about using Contagion as a Go package, head over to the [Contagion GoDoc](https://godoc.org/github.com/kentwait/contagion) page.
 
 # Authentication
 
