@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;toml&quot;,&quot;shell&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -211,10 +211,8 @@
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
+              <a href="#" data-language-name="toml">toml</a>
               <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -225,7 +223,39 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+            <a href="#quickstart" class="toc-h1 toc-link" data-title="Quickstart">Quickstart</a>
+          </li>
+          <li>
+            <a href="#configuration-file" class="toc-h1 toc-link" data-title="Configuration file">Configuration file</a>
+          </li>
+          <li>
+            <a href="#simulation" class="toc-h1 toc-link" data-title="Simulation">Simulation</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#epidemic_model" class="toc-h2 toc-link" data-title="epidemic_model">epidemic_model</a>
+                  </li>
+                  <li>
+                    <a href="#coinfection" class="toc-h2 toc-link" data-title="coinfection">coinfection</a>
+                  </li>
+                  <li>
+                    <a href="#host_popsize" class="toc-h2 toc-link" data-title="host_popsize">host_popsize</a>
+                  </li>
+                  <li>
+                    <a href="#host_network_path" class="toc-h2 toc-link" data-title="host_network_path">host_network_path</a>
+                  </li>
+                  <li>
+                    <a href="#num_sites" class="toc-h2 toc-link" data-title="num_sites">num_sites</a>
+                  </li>
+                  <li>
+                    <a href="#expected_characters" class="toc-h2 toc-link" data-title="expected_characters">expected_characters</a>
+                  </li>
+                  <li>
+                    <a href="#pathogen_path" class="toc-h2 toc-link" data-title="pathogen_path">pathogen_path</a>
+                  </li>
+                  <li>
+                    <a href="#num_instances" class="toc-h2 toc-link" data-title="num_instances">num_instances</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
@@ -254,41 +284,229 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Contagion is a forward genetic simulator designed to model evolution occurring at multiple frames of reference, such as the evolution of viruses and other pathogens.</p>
 
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>There are two ways to set-up a simulation in Contagion: writing down simulation parameters to a configuration file or interactively set-up the simulation using the Contagion command-line interface (Contagion CLI). </p>
 
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
+<p>Below you can find instructions how to set-up and run simulations in Contagion either by using a configuration file or the Contagion CLI. You can view configuration examples in the dark area to the right, and you can switch between the configuration file or the Contagion CLI guide using the tabs in the top right.</p>
+
+<p>Contagion is free and open-source software written in Go and is distributed under the Apache License. For specific scenarios not currently implemented in the program, users are encouraged to use Contagion as the basis for their simulations. Contagion is built as a set of functional modules that can be readily adapted for many different simulation objectives. For more information about using Contagion as a Go package, head over to the <a href="https://godoc.org/github.com/kentwait/contagion">Contagion GoDoc</a> page.</p>
+<h1 id='quickstart'>Quickstart</h1>
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>Use this configuration to create an SIR simulation without mutation in a fully-connected population of 10 hosts.</p>
 </blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<pre class="highlight toml tab-toml"><code><span class="nn">[simulation]</span>
+<span class="py">num_generations</span> <span class="p">=</span> <span class="mi">100</span>
+<span class="py">num_instances</span> <span class="p">=</span> <span class="mi">1</span>
+<span class="py">host_popsize</span> <span class="p">=</span> <span class="mi">10</span>
+<span class="py">epidemic_model</span> <span class="p">=</span> <span class="s">"sir"</span>
+<span class="py">coinfection</span> <span class="p">=</span> <span class="kc">false</span>
+<span class="py">pathogen_path</span> <span class="p">=</span> <span class="s">"examples/pathogens.quickstart.fa"</span>
+<span class="py">host_network_path</span> <span class="p">=</span> <span class="s">"examples/net.quickstart.txt"</span>
+<span class="py">num_sites</span> <span class="p">=</span> <span class="mi">1</span>
+<span class="py">expected_characters</span> <span class="p">=</span> <span class="p">[</span><span class="s">"U"</span><span class="p">,</span> <span class="s">"P"</span><span class="p">]</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<span class="nn">[logging]</span>
+<span class="py">log_freq</span> <span class="p">=</span> <span class="mi">1</span>
+<span class="py">log_path</span> <span class="p">=</span> <span class="s">"examples/run.log"</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+<span class="nn">[[intrahost_model]]</span>
+<span class="py">model_name</span> <span class="p">=</span> <span class="s">"no_mutation_no_selection"</span>
+<span class="py">host_ids</span> <span class="p">=</span> <span class="nn">[0,1,2,3,4,5,6,7,8,9]</span>
+<span class="py">mutation_rate</span> <span class="p">=</span> <span class="mf">0.0</span>
+<span class="py">transition_matrix</span> <span class="p">=</span> <span class="p">[</span>
+  <span class="p">[</span> <span class="mf">0.0e+00</span><span class="p">,</span> <span class="mf">0.0e+00</span> <span class="p">],</span>
+  <span class="p">[</span> <span class="mf">0.0e+00</span><span class="p">,</span> <span class="mf">0.0e+00</span> <span class="p">],</span>
+<span class="p">]</span>
+<span class="py">recombination_rate</span> <span class="p">=</span> <span class="mf">0.0</span>
+<span class="py">replication_model</span> <span class="p">=</span> <span class="s">"constant"</span>
+<span class="py">max_pop_size</span> <span class="p">=</span> <span class="mi">1000000</span>
+<span class="py">infected_duration</span> <span class="p">=</span> <span class="mi">10</span>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<span class="nn">[[fitness_model]]</span>
+<span class="py">model_name</span> <span class="p">=</span> <span class="s">"additive"</span>
+<span class="py">host_ids</span> <span class="p">=</span> <span class="p">[</span>
+ <span class="mi">0</span>
+<span class="p">]</span>
+<span class="py">fitness_model</span> <span class="p">=</span> <span class="s">"additive"</span>
+<span class="py">fitness_model_path</span> <span class="p">=</span> <span class="s">"examples/fitpop/fm.txt"</span>
+
+<span class="nn">[[transmission_model]]</span>
+<span class="py">model_name</span> <span class="p">=</span> <span class="s">"poisson"</span>
+<span class="py">host_ids</span> <span class="p">=</span> <span class="p">[</span>
+ <span class="mi">0</span>
+<span class="p">]</span>
+<span class="py">mode</span> <span class="p">=</span> <span class="s">"poisson"</span>
+<span class="py">transmission_prob</span> <span class="p">=</span> <span class="mf">0.0</span>
+<span class="py">transmission_size</span> <span class="p">=</span> <span class="mf">10.0</span>
+
+<span class="c"># [[stop_condition]]</span>
+<span class="c"># condition = "allele_fixloss"</span>
+<span class="c"># sequence = "P"</span>
+<span class="c"># position = 0</span>
+</code></pre><pre class="highlight shell tab-shell"><code></code></pre><h1 id='configuration-file'>Configuration file</h1>
+<p>The configuration file is the main method to set-up and control the behavior of a simulation. The configuration file follows the TOML specification and is divided into different sections grouped by the role of the parameters. </p>
+
+<p>There are two types of parameters in Contagion - global and local parameters. Global parameters affect the entire simulation, such as the size and the duration of the simulation, and how the data generated from the simulation is logged. Global parameters can only be declared once and have only one constant value for the entire simulation. Parameters in the <code>simulation</code> and the <code>logging</code> sections of the configuration file are global parameters.</p>
+
+<p>Parameters that would only affect a part of the simulation are called local parameters. For example, you want to simulate the evolution of pathogens across two different host species where viral mutation rate is higher in one compared to the other. Under this scenario, the population of hosts in the simulation need to be divided into two groups and each group requires a distinct viral mutation rate parameter. Thus, mutation rate is a local parameter that can be configured to have multiple values, each affecting only a particular subset of the population. Parameters in the <code>intrahost_model</code>, <code>fitness_model</code>, <code>transmission_model</code>, and <code>stop_condition</code> sections are local parameters. Note that while local parameters can be set to affect only a portion of the simulation, these parameters can also be used to assign a global behavior to the simulation. </p>
+<h1 id='simulation'>Simulation</h1>
+<blockquote>
+<p>Parameters in the simulation section:</p>
+</blockquote>
+<pre class="highlight toml tab-toml"><code><span class="nn">[simulation]</span>
+
+<span class="py">epidemic_model</span> <span class="p">=</span> <span class="s">"sir"</span>
+<span class="py">coinfection</span> <span class="p">=</span> <span class="kc">false</span>
+
+<span class="py">host_popsize</span> <span class="p">=</span> <span class="mi">10</span>
+<span class="py">host_network_path</span> <span class="p">=</span> <span class="s">"network.txt"</span>
+
+<span class="py">num_sites</span> <span class="p">=</span> <span class="mi">10000</span>
+<span class="py">expected_characters</span> <span class="p">=</span> <span class="p">[</span><span class="s">"A"</span><span class="p">,</span> <span class="s">"T"</span><span class="p">,</span> <span class="s">"C"</span><span class="p">,</span> <span class="s">"G"</span><span class="p">]</span>
+<span class="py">pathogen_path</span> <span class="p">=</span> <span class="s">"pathogens.fa"</span>
+
+<span class="py">num_instances</span> <span class="p">=</span> <span class="mi">1</span>
+</code></pre>
+<p>The <code>simulation</code> section sets the type of epidemic model to run, size and shape of the host population network, the number of pathogen genetic sites to model, and the number of independent realizes to run.</p>
+
+<p>To mark the start of the simulation section, the section title is enclosed by square brackets <code>[]</code> and all parameters declared after become part of the section until a new section title is encountered. This behavior is not only limited to the Contagion configuration file but is part of the TOML specification.</p>
+<h2 id='epidemic_model'>epidemic_model</h2>
+<p>The <code>epidemic_model</code> parameter specifies the type of epidemic model to simulate. Contagion uses the concept of a compartmental model to determine the status of each host in the simulation. During the simulation, a host can have only one status (belong to only one compartment) at every time step. The initial (default) state is the susceptible state. This indicates that the host is not currently infected. When a pathogen infects a host, the host moves from susceptible and enters the infected state. The duration of the infection can be determined using a transition probability, a definite assigned length, or depend on the fitness of infecting pathogens within the host. In some models, infection is chronic and persists throughout the simulation time, whereas others allow the host to remove the infection.</p>
+
+<p>Below are the list of epidemic models currently implemented in Contagion.</p>
+
+<table><thead>
+<tr>
+<th>Keyword</th>
+<th>Epidemic model</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>si</td>
+<td>susceptible-infected</td>
+<td>Hosts infected with the pathogen remain infected until the end of the simulation</td>
+</tr>
+<tr>
+<td>sis</td>
+<td>susceptible-infected-susceptible</td>
+<td>Hosts recover from the infection and immediately become susceptible again. After infection, all pathogens within the host is removed. However, recovered hosts can be reinfected.</td>
+</tr>
+<tr>
+<td>sir</td>
+<td>susceptible-infected-removed</td>
+<td>Hosts recover from the infection. After infection, all pathogens within the host is removed. Hosts cannot be reinfected after recovery.</td>
+</tr>
+<tr>
+<td>sirs</td>
+<td>susceptible-infected-removed-susceptible</td>
+<td>Similar to <code>sir</code> except that hosts can become susceptible again and may be reinfected.</td>
+</tr>
+<tr>
+<td>sei</td>
+<td>susceptible-exposed-infectious</td>
+<td>Hosts infected by the pathogen do not immediately become infectious. This model introduces a lag time between infection and the ability to spread the infection.</td>
+</tr>
+<tr>
+<td>seis</td>
+<td>susceptible-exposed-infectious-susceptible</td>
+<td>Similar to <code>sis</code> except a lag time exists between infection and the ability to spread the disease.</td>
+</tr>
+<tr>
+<td>seir</td>
+<td>susceptible-exposed-infected-removed</td>
+<td>Similar to <code>sir</code> except a lag time exists between infection and the ability to spread the disease.</td>
+</tr>
+<tr>
+<td>seirs</td>
+<td>susceptible-exposed-infected-removed-susceptible</td>
+<td>Similar to <code>sirs</code> except a lag time exists between infection and the ability to spread the disease.</td>
+</tr>
+<tr>
+<td>endtrans</td>
+<td>susceptible-infected-removed</td>
+<td>Based on <code>sir</code>, this model conditions transmission of the infection at the last day of infection.</td>
+</tr>
+</tbody></table>
+<h2 id='coinfection'>coinfection</h2>
+<p>The <code>coinfection</code> parameter indicates whether mixed infections are allowed. Originally, pathogens can only infect hosts that are in the susceptible state. However, this behavior makes infected individuals temporarily immune to inoculation while in the infected state. To address this peculiar dynamic, coinfection allows pathogens to both infect susceptible hosts and currently infected individuals.</p>
+
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>true</td>
+<td>Allows pathogens to infect susceptible and infected individuals</td>
+</tr>
+<tr>
+<td>false</td>
+<td>Pathogens can only be spread to susceptible individuals</td>
+</tr>
+</tbody></table>
+<h2 id='host_popsize'>host_popsize</h2>
+<p>The <code>host_popsize</code> parameter describes the number of hosts to be modeled in the simulation. The value of this parameter must be an integer and should match the number of hosts in the host network configuration file.</p>
+<h2 id='host_network_path'>host_network_path</h2>
+<blockquote>
+<p>Each line in the host network configuration file indicates a one-way connection between two hosts by ID. To specify an undirected connection, declare the host pair twice in the forward and reverse directions.</p>
+</blockquote>
+<pre class="highlight plaintext"><code># Ignores lines that begin with a hash
+1   2
+2   1
+1   3
+3   1
+1   4
+4   1
 </code></pre>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>Individual transmission probabilities can be specified for each connection by adding a third value:</p>
 </blockquote>
+<pre class="highlight plaintext"><code># Ignores lines that begin with a hash
+1   2   0.5
+2   1   0.7
+1   3   0.1
+3   1   0.9
+1   4   0.8
+4   1   0.8
+</code></pre>
+<p>The host network configuration file is a text file that lists the number of adjacently-connected hosts in the host population. This adjacency list is used to create an adjacency matrix and define the local neighborhood of each host in the simulation.</p>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<p>The <code>host_network_path</code> indicates the location of the host network configuration file. This path can be either an absolute path or the relative path. However, it is recommended to use the absolute path for clarity.</p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>Currently, Contagion uses a static host network and does not use dynamically changing networks.</p>
+<h2 id='num_sites'>num_sites</h2>
+<p>The <code>num_sites</code> parameter indicates the number of genetic sites to model during the simulation. The value must be an integer greater than 0.</p>
 
-<p><code>Authorization: meowmeowmeow</code></p>
+<p>In Contagion, a site is the smallest evolvable unit of information. Each site holds a categorical state that can be mutated based on a given transition matrix of probabilities. The sequence of sites and their states make up the simulated genome of the pathogen.</p>
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+<p>The number of sites depends on the simulation objective. If the simulation intends to model the molecular evolution at the nucleotide level, then each site should represent each nucleotide in the sequence. On the other hand, if the simulation is concerned about codon or protein evolution, then each site should be modeled after a codon or an amino acid respectively. Another way to model evolution is to consider a site as a locus that holds an allele. Under this view, one site may be sufficient to model the dynamics of the system.</p>
+<h2 id='expected_characters'>expected_characters</h2><h2 id='pathogen_path'>pathogen_path</h2>
+<blockquote>
+<p>The pathogen sequence file is based on the FASTA file format:</p>
+</blockquote>
+<pre class="highlight plaintext"><code># Ignores lines that begin with a hash
+% U:0 P:1
+&gt;pathogen1 h:0
+UUPUUPUPUUPPUUPUUPUPPPUU
+&gt;pathogen2 h:0
+PUPUUPUPUPUPPUUUUPPPPPPP
+</code></pre>
+<blockquote>
+<p>Contagion also allows for non-unique sequence IDs which is considered invalid FASTA formatting.</p>
+</blockquote>
+<pre class="highlight plaintext"><code># Ignores lines that begin with a hash
+% U:0 P:1
+&gt;h:0
+UUPUUPUPUUPPUUPUUPUPPPUU
+&gt;h:0
+PUPUUPUPUPUPPUUUUPPPPPPP
+</code></pre>
+<p>The <code>pathogen_path</code> parameter indicate the location of the pathogen FASTA file </p>
+<h2 id='num_instances'>num_instances</h2>
+<p>The <code>num_instances</code> parameter specifies the number of independent realizations of the simulation to perform. This is similar to the concept of replication. If <code>num_instances</code> is greater than 1, then the simulation will be repeated performed using the same set of input parameters. Since the processes in the simulation are stochastic, then each realized simulation may not necessarily reproduce the results from previous trials.</p>
 <h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
 
 <span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
@@ -494,10 +712,8 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
       </div>
       <div class="dark-box">
           <div class="lang-selector">
+                <a href="#" data-language-name="toml">toml</a>
                 <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
           </div>
       </div>
     </div>
