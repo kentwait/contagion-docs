@@ -2,10 +2,8 @@
 title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
+  - toml
   - shell
-  - ruby
-  - python
-  - javascript
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
@@ -86,51 +84,140 @@ transmission_size = 10.0
 ```shell
 ```
 
-# Configuration
+# Configuration file
 
-The configuration file is the main method to set-up and control the behavior of a simulation. The configuration file is divided into different sections grouped by the role of the parameters. 
+The configuration file is the main method to set-up and control the behavior of a simulation. The configuration file follows the TOML specification and is divided into different sections grouped by the role of the parameters. 
 
 There are two types of parameters in Contagion - global and local parameters. Global parameters affect the entire simulation, such as the size and the duration of the simulation, and how the data generated from the simulation is logged. Global parameters can only be declared once and have only one constant value for the entire simulation. Parameters in the `simulation` and the `logging` sections of the configuration file are global parameters.
 
 Parameters that would only affect a part of the simulation are called local parameters. For example, you want to simulate the evolution of pathogens across two different host species where viral mutation rate is higher in one compared to the other. Under this scenario, the population of hosts in the simulation need to be divided into two groups and each group requires a distinct viral mutation rate parameter. Thus, mutation rate is a local parameter that can be configured to have multiple values, each affecting only a particular subset of the population. Parameters in the `intrahost_model`, `fitness_model`, `transmission_model`, and `stop_condition` sections are local parameters. Note that while local parameters can be set to affect only a portion of the simulation, these parameters can also be used to assign a global behavior to the simulation. 
 
-> To authorize, use this code:
+# Simulation
 
-```ruby
-require 'kittn'
+> Parameters in the simulation section:
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+```toml
+[simulation]
+
+epidemic_model = "sir"
+coinfection = false
+
+host_popsize = 10
+host_network_path = "network.txt"
+
+num_sites = 10000
+expected_characters = ["A", "T", "C", "G"]
+pathogen_path = "pathogens.fa"
+
+num_instances = 1
 ```
 
-```python
-import kittn
+The `simulation` section sets the type of epidemic model to run, size and shape of the host population network, the number of pathogen genetic sites to model, and the number of independent realizes to run.
 
-api = kittn.authorize('meowmeowmeow')
+To mark the start of the simulation section, the section title is enclosed by square brackets `[]` and all parameters declared after become part of the section until a new section title is encountered. This behavior is not only limited to the Contagion configuration file but is part of the TOML specification.
+
+## epidemic_model
+
+The `epidemic_model` parameter specifies the type of epidemic model to simulate. Contagion uses the concept of a compartmental model to determine the status of each host in the simulation. During the simulation, a host can have only one status (belong to only one compartment) at every time step. The initial (default) state is the susceptible state. This indicates that the host is not currently infected. When a pathogen infects a host, the host moves from susceptible and enters the infected state. The duration of the infection can be determined using a transition probability, a definite assigned length, or depend on the fitness of infecting pathogens within the host. In some models, infection is chronic and persists throughout the simulation time, whereas others allow the host to remove the infection.
+
+Below are the list of epidemic models currently implemented in Contagion.
+
+Keyword | Epidemic model | Description
+------- | -------------- | -----------
+si | susceptible-infected | Hosts infected with the pathogen remain infected until the end of the simulation
+sis | susceptible-infected-susceptible | Hosts recover from the infection and immediately become susceptible again. After infection, all pathogens within the host is removed. However, recovered hosts can be reinfected.
+sir | susceptible-infected-removed | Hosts recover from the infection. After infection, all pathogens within the host is removed. Hosts cannot be reinfected after recovery.
+sirs | susceptible-infected-removed-susceptible | Similar to `sir` except that hosts can become susceptible again and may be reinfected.
+sei | susceptible-exposed-infectious | Hosts infected by the pathogen do not immediately become infectious. This model introduces a lag time between infection and the ability to spread the infection.
+seis | susceptible-exposed-infectious-susceptible | Similar to `sis` except a lag time exists between infection and the ability to spread the disease.
+seir | susceptible-exposed-infected-removed | Similar to `sir` except a lag time exists between infection and the ability to spread the disease.
+seirs | susceptible-exposed-infected-removed-susceptible | Similar to `sirs` except a lag time exists between infection and the ability to spread the disease.
+endtrans | susceptible-infected-removed | Based on `sir`, this model conditions transmission of the infection at the last day of infection.
+
+## coinfection
+
+The `coinfection` parameter indicates whether mixed infections are allowed. Originally, pathogens can only infect hosts that are in the susceptible state. However, this behavior makes infected individuals temporarily immune to inoculation while in the infected state. To address this peculiar dynamic, coinfection allows pathogens to both infect susceptible hosts and currently infected individuals.
+
+Value | Description
+----- | -----------
+true | Allows pathogens to infect susceptible and infected individuals
+false | Pathogens can only be spread to susceptible individuals
+
+## host_popsize
+
+The `host_popsize` parameter describes the number of hosts to be modeled in the simulation. The value of this parameter must be an integer and should match the number of hosts in the host network configuration file.
+
+## host_network_path
+
+> Each line in the host network configuration file indicates a one-way connection between two hosts by ID. To specify an undirected connection, declare the host pair twice in the forward and reverse directions.
+
+```text
+# Ignores lines that begin with a hash
+1   2
+2   1
+1   3
+3   1
+1   4
+4   1
 ```
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+> Individual transmission probabilities can be specified for each connection by adding a third value:
+
+```text
+# Ignores lines that begin with a hash
+1   2   0.5
+2   1   0.7
+1   3   0.1
+3   1   0.9
+1   4   0.8
+4   1   0.8
 ```
 
-```javascript
-const kittn = require('kittn');
+The host network configuration file is a text file that lists the number of adjacently-connected hosts in the host population. This adjacency list is used to create an adjacency matrix and define the local neighborhood of each host in the simulation.
 
-let api = kittn.authorize('meowmeowmeow');
+The `host_network_path` indicates the location of the host network configuration file. This path can be either an absolute path or the relative path. However, it is recommended to use the absolute path for clarity.
+
+Currently, Contagion uses a static host network and does not use dynamically changing networks.
+
+## num_sites
+
+The `num_sites` parameter indicates the number of genetic sites to model during the simulation. The value must be an integer greater than 0.
+
+In Contagion, a site is the smallest evolvable unit of information. Each site holds a categorical state that can be mutated based on a given transition matrix of probabilities. The sequence of sites and their states make up the simulated genome of the pathogen.
+
+The number of sites depends on the simulation objective. If the simulation intends to model the molecular evolution at the nucleotide level, then each site should represent each nucleotide in the sequence. On the other hand, if the simulation is concerned about codon or protein evolution, then each site should be modeled after a codon or an amino acid respectively. Another way to model evolution is to consider a site as a locus that holds an allele. Under this view, one site may be sufficient to model the dynamics of the system.
+
+## expected_characters
+
+## pathogen_path
+
+> The pathogen sequence file is based on the FASTA file format:
+
+```text
+# Ignores lines that begin with a hash
+% U:0 P:1
+>pathogen1 h:0
+UUPUUPUPUUPPUUPUUPUPPPUU
+>pathogen2 h:0
+PUPUUPUPUPUPPUUUUPPPPPPP
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+> Contagion also allows for non-unique sequence IDs which is considered invalid FASTA formatting.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+```text
+# Ignores lines that begin with a hash
+% U:0 P:1
+>h:0
+UUPUUPUPUUPPUUPUUPUPPPUU
+>h:0
+PUPUUPUPUPUPPUUUUPPPPPPP
+```
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+The `pathogen_path` parameter indicate the location of the pathogen FASTA file 
 
-`Authorization: meowmeowmeow`
+## num_instances
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+The `num_instances` parameter specifies the number of independent realizations of the simulation to perform. This is similar to the concept of replication. If `num_instances` is greater than 1, then the simulation will be repeated performed using the same set of input parameters. Since the processes in the simulation are stochastic, then each realized simulation may not necessarily reproduce the results from previous trials.
 
 # Kittens
 
