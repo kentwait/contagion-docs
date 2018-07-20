@@ -84,6 +84,9 @@ transmission_size = 10.0
 ```shell
 ```
 
+# Contagion CLI
+
+
 # Configuration file
 
 The configuration file is the main method to set-up and control the behavior of a simulation. The configuration file follows the TOML specification and is divided into different sections grouped by the role of the parameters. 
@@ -92,7 +95,7 @@ There are two types of parameters in Contagion - global and local parameters. Gl
 
 Parameters that would only affect a part of the simulation are called local parameters. For example, you want to simulate the evolution of pathogens across two different host species where viral mutation rate is higher in one compared to the other. Under this scenario, the population of hosts in the simulation need to be divided into two groups and each group requires a distinct viral mutation rate parameter. Thus, mutation rate is a local parameter that can be configured to have multiple values, each affecting only a particular subset of the population. Parameters in the `intrahost_model`, `fitness_model`, `transmission_model`, and `stop_condition` sections are local parameters. Note that while local parameters can be set to affect only a portion of the simulation, these parameters can also be used to assign a global behavior to the simulation. 
 
-# Simulation
+# Simulation parameters
 
 > Parameters in the simulation section:
 
@@ -219,7 +222,46 @@ The `pathogen_path` parameter indicate the location of the pathogen FASTA file
 
 The `num_instances` parameter specifies the number of independent realizations of the simulation to perform. This is similar to the concept of replication. If `num_instances` is greater than 1, then the simulation will be repeated performed using the same set of input parameters. Since the processes in the simulation are stochastic, then each realized simulation may not necessarily reproduce the results from previous trials.
 
-# Kittens
+# Logging parameters
+
+## log_freq
+
+## log_path 
+
+# Host models
+
+
+# Intrahost model
+## model_name
+## host_ids
+## mutation_rate
+## transition_matrix
+## recombination_rate
+## replication_model
+## max_pop_size
+## infected_duration
+
+# Fitness model
+## model_name
+## host_ids
+## fitness_model
+## fitness_model_path
+
+# Transmission model
+## model_name
+## host_ids
+## mode
+## transmission_prob
+## transmission_size
+
+# Stop conditions
+## condition
+## sequence
+## position
+
+# Running the simulation
+
+# Analyzing data
 
 ## Get All Kittens
 
