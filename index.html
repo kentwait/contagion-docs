@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>Contagion User Guide</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -226,10 +226,13 @@
             <a href="#quickstart" class="toc-h1 toc-link" data-title="Quickstart">Quickstart</a>
           </li>
           <li>
+            <a href="#contagion-cli" class="toc-h1 toc-link" data-title="Contagion CLI">Contagion CLI</a>
+          </li>
+          <li>
             <a href="#configuration-file" class="toc-h1 toc-link" data-title="Configuration file">Configuration file</a>
           </li>
           <li>
-            <a href="#simulation" class="toc-h1 toc-link" data-title="Simulation">Simulation</a>
+            <a href="#simulation-parameters" class="toc-h1 toc-link" data-title="Simulation parameters">Simulation parameters</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#epidemic_model" class="toc-h2 toc-link" data-title="epidemic_model">epidemic_model</a>
@@ -258,7 +261,104 @@
               </ul>
           </li>
           <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#logging-parameters" class="toc-h1 toc-link" data-title="Logging parameters">Logging parameters</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#log_freq" class="toc-h2 toc-link" data-title="log_freq">log_freq</a>
+                  </li>
+                  <li>
+                    <a href="#log_path" class="toc-h2 toc-link" data-title="log_path">log_path</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#host-models" class="toc-h1 toc-link" data-title="Host models">Host models</a>
+          </li>
+          <li>
+            <a href="#intrahost-model" class="toc-h1 toc-link" data-title="Intrahost model">Intrahost model</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#model_name" class="toc-h2 toc-link" data-title="model_name">model_name</a>
+                  </li>
+                  <li>
+                    <a href="#host_ids" class="toc-h2 toc-link" data-title="host_ids">host_ids</a>
+                  </li>
+                  <li>
+                    <a href="#mutation_rate" class="toc-h2 toc-link" data-title="mutation_rate">mutation_rate</a>
+                  </li>
+                  <li>
+                    <a href="#transition_matrix" class="toc-h2 toc-link" data-title="transition_matrix">transition_matrix</a>
+                  </li>
+                  <li>
+                    <a href="#recombination_rate" class="toc-h2 toc-link" data-title="recombination_rate">recombination_rate</a>
+                  </li>
+                  <li>
+                    <a href="#replication_model" class="toc-h2 toc-link" data-title="replication_model">replication_model</a>
+                  </li>
+                  <li>
+                    <a href="#max_pop_size" class="toc-h2 toc-link" data-title="max_pop_size">max_pop_size</a>
+                  </li>
+                  <li>
+                    <a href="#infected_duration" class="toc-h2 toc-link" data-title="infected_duration">infected_duration</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#fitness-model" class="toc-h1 toc-link" data-title="Fitness model">Fitness model</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#model_name-2" class="toc-h2 toc-link" data-title="model_name">model_name</a>
+                  </li>
+                  <li>
+                    <a href="#host_ids-2" class="toc-h2 toc-link" data-title="host_ids">host_ids</a>
+                  </li>
+                  <li>
+                    <a href="#fitness_model" class="toc-h2 toc-link" data-title="fitness_model">fitness_model</a>
+                  </li>
+                  <li>
+                    <a href="#fitness_model_path" class="toc-h2 toc-link" data-title="fitness_model_path">fitness_model_path</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#transmission-model" class="toc-h1 toc-link" data-title="Transmission model">Transmission model</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#model_name-3" class="toc-h2 toc-link" data-title="model_name">model_name</a>
+                  </li>
+                  <li>
+                    <a href="#host_ids-3" class="toc-h2 toc-link" data-title="host_ids">host_ids</a>
+                  </li>
+                  <li>
+                    <a href="#mode" class="toc-h2 toc-link" data-title="mode">mode</a>
+                  </li>
+                  <li>
+                    <a href="#transmission_prob" class="toc-h2 toc-link" data-title="transmission_prob">transmission_prob</a>
+                  </li>
+                  <li>
+                    <a href="#transmission_size" class="toc-h2 toc-link" data-title="transmission_size">transmission_size</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#stop-conditions" class="toc-h1 toc-link" data-title="Stop conditions">Stop conditions</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#condition" class="toc-h2 toc-link" data-title="condition">condition</a>
+                  </li>
+                  <li>
+                    <a href="#sequence" class="toc-h2 toc-link" data-title="sequence">sequence</a>
+                  </li>
+                  <li>
+                    <a href="#position" class="toc-h2 toc-link" data-title="position">position</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#running-the-simulation" class="toc-h1 toc-link" data-title="Running the simulation">Running the simulation</a>
+          </li>
+          <li>
+            <a href="#analyzing-data" class="toc-h1 toc-link" data-title="Analyzing data">Analyzing data</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
@@ -276,7 +376,8 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
+            <li><a href='https://github.com/kentwait/contagion'>Download Contagion</a></li>
+            <li><a href="https://twitter.com/kent">@kent</a></li>
             <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -344,13 +445,13 @@
 <span class="c"># condition = "allele_fixloss"</span>
 <span class="c"># sequence = "P"</span>
 <span class="c"># position = 0</span>
-</code></pre><pre class="highlight shell tab-shell"><code></code></pre><h1 id='configuration-file'>Configuration file</h1>
+</code></pre><pre class="highlight shell tab-shell"><code></code></pre><h1 id='contagion-cli'>Contagion CLI</h1><h1 id='configuration-file'>Configuration file</h1>
 <p>The configuration file is the main method to set-up and control the behavior of a simulation. The configuration file follows the TOML specification and is divided into different sections grouped by the role of the parameters. </p>
 
 <p>There are two types of parameters in Contagion - global and local parameters. Global parameters affect the entire simulation, such as the size and the duration of the simulation, and how the data generated from the simulation is logged. Global parameters can only be declared once and have only one constant value for the entire simulation. Parameters in the <code>simulation</code> and the <code>logging</code> sections of the configuration file are global parameters.</p>
 
 <p>Parameters that would only affect a part of the simulation are called local parameters. For example, you want to simulate the evolution of pathogens across two different host species where viral mutation rate is higher in one compared to the other. Under this scenario, the population of hosts in the simulation need to be divided into two groups and each group requires a distinct viral mutation rate parameter. Thus, mutation rate is a local parameter that can be configured to have multiple values, each affecting only a particular subset of the population. Parameters in the <code>intrahost_model</code>, <code>fitness_model</code>, <code>transmission_model</code>, and <code>stop_condition</code> sections are local parameters. Note that while local parameters can be set to affect only a portion of the simulation, these parameters can also be used to assign a global behavior to the simulation. </p>
-<h1 id='simulation'>Simulation</h1>
+<h1 id='simulation-parameters'>Simulation parameters</h1>
 <blockquote>
 <p>Parameters in the simulation section:</p>
 </blockquote>
@@ -373,9 +474,7 @@
 <p>To mark the start of the simulation section, the section title is enclosed by square brackets <code>[]</code> and all parameters declared after become part of the section until a new section title is encountered. This behavior is not only limited to the Contagion configuration file but is part of the TOML specification.</p>
 <h2 id='epidemic_model'>epidemic_model</h2>
 <p>The <code>epidemic_model</code> parameter specifies the type of epidemic model to simulate. Contagion uses the concept of a compartmental model to determine the status of each host in the simulation. During the simulation, a host can have only one status (belong to only one compartment) at every time step. The initial (default) state is the susceptible state. This indicates that the host is not currently infected. When a pathogen infects a host, the host moves from susceptible and enters the infected state. The duration of the infection can be determined using a transition probability, a definite assigned length, or depend on the fitness of infecting pathogens within the host. In some models, infection is chronic and persists throughout the simulation time, whereas others allow the host to remove the infection.</p>
-
-<p>Below are the list of epidemic models currently implemented in Contagion.</p>
-
+<h3 id='epidemic-models-currently-implemented-in-contagion'>Epidemic models currently implemented in Contagion</h3>
 <table><thead>
 <tr>
 <th>Keyword</th>
@@ -476,6 +575,10 @@
 
 <p>The <code>host_network_path</code> indicates the location of the host network configuration file. This path can be either an absolute path or the relative path. However, it is recommended to use the absolute path for clarity.</p>
 
+<aside class="notice">
+Use absolute paths to indicate the location of the host network configuration file.
+</aside>
+
 <p>Currently, Contagion uses a static host network and does not use dynamically changing networks.</p>
 <h2 id='num_sites'>num_sites</h2>
 <p>The <code>num_sites</code> parameter indicates the number of genetic sites to model during the simulation. The value must be an integer greater than 0.</p>
@@ -483,7 +586,11 @@
 <p>In Contagion, a site is the smallest evolvable unit of information. Each site holds a categorical state that can be mutated based on a given transition matrix of probabilities. The sequence of sites and their states make up the simulated genome of the pathogen.</p>
 
 <p>The number of sites depends on the simulation objective. If the simulation intends to model the molecular evolution at the nucleotide level, then each site should represent each nucleotide in the sequence. On the other hand, if the simulation is concerned about codon or protein evolution, then each site should be modeled after a codon or an amino acid respectively. Another way to model evolution is to consider a site as a locus that holds an allele. Under this view, one site may be sufficient to model the dynamics of the system.</p>
-<h2 id='expected_characters'>expected_characters</h2><h2 id='pathogen_path'>pathogen_path</h2>
+<h2 id='expected_characters'>expected_characters</h2>
+<p><strong>deprecated</strong></p>
+
+<p>The <code>expected_characters</code> parameter indicates the list of characters (letters, digits, symbols) the program should expect from the sequences located in the pathogen sequence file. When the program reads the sequence file, it converts the characters into representative integers to make the simulations run more efficiently.</p>
+<h2 id='pathogen_path'>pathogen_path</h2>
 <blockquote>
 <p>The pathogen sequence file is based on the FASTA file format:</p>
 </blockquote>
@@ -504,10 +611,154 @@ UUPUUPUPUUPPUUPUUPUPPPUU
 &gt;h:0
 PUPUUPUPUPUPPUUUUPPPPPPP
 </code></pre>
-<p>The <code>pathogen_path</code> parameter indicate the location of the pathogen FASTA file </p>
+<p>The <code>pathogen_path</code> parameter indicate the location of the pathogen sequence file. This path can be either an absolute path or the relative path. However, it is recommended to use the absolute path for clarity.</p>
+
+<aside class="notice">
+Use absolute paths to indicate the location of the pathogen sequence file.
+</aside>
 <h2 id='num_instances'>num_instances</h2>
 <p>The <code>num_instances</code> parameter specifies the number of independent realizations of the simulation to perform. This is similar to the concept of replication. If <code>num_instances</code> is greater than 1, then the simulation will be repeated performed using the same set of input parameters. Since the processes in the simulation are stochastic, then each realized simulation may not necessarily reproduce the results from previous trials.</p>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h1 id='logging-parameters'>Logging parameters</h1><h2 id='log_freq'>log_freq</h2>
+<p>The <code>log_freq</code> parameter indicates how often data generated by the simulation will be saved to disk. Setting <code>log_freq</code> to 1 will save all the data generated for every step in the simulation. On the other hand, setting it to a value greater than 1 means that data will be saved at periodic intervals only.</p>
+<h2 id='log_path'>log_path</h2>
+<p>The <code>log_path</code> parameter indicates where to save the data generated during the simulation. This path can be either an absolute path or the relative path. However, it is recommended to use the absolute path for clarity.</p>
+
+<aside class="notice">
+Use absolute paths to indicate the location of the pathogen sequence file.
+</aside>
+<h1 id='host-models'>Host models</h1><h1 id='intrahost-model'>Intrahost model</h1>
+<p>The intrahost model specifies the parameters that affect the behavior of pathogen within the host.</p>
+<h2 id='model_name'>model_name</h2>
+<p>The <code>model_name</code> parameter can be used to set a descriptive name to label the given intrahost model.</p>
+<h2 id='host_ids'>host_ids</h2>
+<p>The <code>host_ids</code> parameter specifies which hosts in the simulation will be associated to this particular intrahost model. To specify the hosts, the <code>host_ids</code> parameter takes on a list of one or more host IDs.</p>
+<h2 id='mutation_rate'>mutation_rate</h2>
+<p>The <code>mutation_rate</code> parameter defines the genetic mutation rate of the pathogen when infecting a host. The value of the <code>mutation_rate</code> parameter refers to the average mutation rate for each site and for each generation.</p>
+<h2 id='transition_matrix'>transition_matrix</h2>
+<p>The <code>transition_matrix</code> parameter specifies the transition rate matrix that the program will use to determine the identities of the new mutations. </p>
+
+<p>To define a transition matrix, the program expects a nested list of lists where (1) each inner list is a row in the matrix, and (2) the number of elements of the inner list is equal to the number of inner lists such that it creates a square matrix.</p>
+
+<blockquote>
+<p>Transition rate matrix for two characters (alleles):</p>
+</blockquote>
+<pre class="highlight toml tab-toml"><code><span class="py">transition_matrix</span> <span class="p">=</span> <span class="p">[</span> <span class="p">[</span> <span class="mf">0.0e+00</span><span class="p">,</span> <span class="mf">1.0e-05</span> <span class="p">],</span> <span class="p">[</span> <span class="mf">1.0e-05</span><span class="p">,</span> <span class="mf">0.0e+00</span> <span class="p">]</span> <span class="p">]</span>
+</code></pre>
+<blockquote>
+<p>Reformats the transition matrix to look like a square matrix:</p>
+</blockquote>
+<pre class="highlight toml tab-toml"><code><span class="py">transition_matrix</span> <span class="p">=</span> <span class="p">[</span> 
+  <span class="p">[</span> <span class="mf">0.0e+00</span><span class="p">,</span> <span class="mf">1.0e-05</span> <span class="p">],</span> 
+  <span class="p">[</span> <span class="mf">1.0e-05</span><span class="p">,</span> <span class="mf">0.0e+00</span> <span class="p">],</span>
+<span class="p">]</span>
+</code></pre>
+<p>For example you are modeling a sequence where each site can take on one of two states. This means that the transition matrix for this scheme should have two inner lists with each list having two values.</p>
+
+<p>The values within the inner lists must be floating-point numbers that contain a decimal point (.) among the digits. Without the decimal, whole numbers are automatically intepreted as integers. To declare a whole number as a floating-point type, a decimal must be appended at the end (for example <code>1.</code> or <code>1.0</code>).</p>
+
+<p>Values can be specified using the normal decimal notation (for example 1000.0) or by scientific notation (<code>1.0e3</code>). For values greater than the ones place value, the exponent of the value in the scientific notation can be written as signed (<code>1.0e+3</code>) or unsigned integers (<code>1.0e3</code>). On the other hand, for values less than one (0.001), the exponent is always negative and must be included (<code>1.0e-3</code>). </p>
+<h3 id='proper-floating-point-value-formatting'>Proper floating-point value formatting</h3>
+<table><thead>
+<tr>
+<th>Number</th>
+<th>Valid</th>
+<th>Explanation</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>0</code></td>
+<td>False</td>
+<td>Decimal point is missing. Number will be interpreted as an integer.</td>
+</tr>
+<tr>
+<td><code>10</code></td>
+<td>False</td>
+<td>Decimal point is missing. Number will be interpreted as an integer.</td>
+</tr>
+<tr>
+<td><code>0.</code></td>
+<td>True</td>
+<td>Trailing decimal point makes this number a floating-point type.</td>
+</tr>
+<tr>
+<td><code>1.</code></td>
+<td>True</td>
+<td>Trailing decimal point makes this number a floating-point type.</td>
+</tr>
+<tr>
+<td><code>0.0</code></td>
+<td>True</td>
+<td>Decimal point before the trailing zero makes this number a floating-point type.</td>
+</tr>
+<tr>
+<td><code>10.2</code></td>
+<td>True</td>
+<td>Decimal point before the digits makes this number a floating-point type.</td>
+</tr>
+<tr>
+<td><code>0.1</code></td>
+<td>True</td>
+<td>Decimal point after the leading zero makes this number a floating-point type.</td>
+</tr>
+<tr>
+<td><code>.0</code></td>
+<td>True</td>
+<td>Leading decimal point also makes this number a floating-point type.</td>
+</tr>
+<tr>
+<td><code>.12</code></td>
+<td>True</td>
+<td>Leading decimal point also makes this number a floating-point type.</td>
+</tr>
+<tr>
+<td><code>1e1</code></td>
+<td>False</td>
+<td>Written in scientific notation but decimal point is missing. Number will be interpreted as an integer.</td>
+</tr>
+<tr>
+<td><code>1.0e2</code></td>
+<td>True</td>
+<td>Written in scientific notation with a decimal point present.</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+Transition matrix values must have a decimal point to be correctly interpreted.
+Contagion will return an error and not proceeed if all values in the specified transition matrix are not floating-point values.
+</aside>
+<h2 id='recombination_rate'>recombination_rate</h2>
+<p>The <code>recombination_rate</code> parameter specifies the recombination rate between pathogen genomes that present within the host. The value of the <code>recombination_rate</code> parameter refers to the average number of recombination events per genome.</p>
+<h2 id='replication_model'>replication_model</h2>
+<p>The <code>replication_model</code> parameter sets the demographics of the pathogen population within the host. </p>
+<h3 id='available-replication-models'>Available replication models</h3>
+<table><thead>
+<tr>
+<th>Keyword</th>
+<th>Constant size</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>constant</code></td>
+<td>True</td>
+<td>Constant population size within the host</td>
+</tr>
+<tr>
+<td><code>bh</code></td>
+<td>False</td>
+<td>Population size changes based on the Beverton-Holt population model. At high growth rates, the population size may suffer from periodic oscillations and may crash due to large fluctuations. If the <code>max_pop_size</code> parameter is set, the <code>max_pop_size</code> becomes the threshold population size such that the population size stays constant upon reaching the threshold number.</td>
+</tr>
+<tr>
+<td><code>fitness</code></td>
+<td>False</td>
+<td>Population size changes based on the growth rates computed from the sequence of the pathogens. This</td>
+</tr>
+</tbody></table>
+<h2 id='max_pop_size'>max_pop_size</h2>
+<p>The <code>max_pop_size</code> parameter is an optional parameter that refers to the threshold population size or the population size under the constant replication model. If the replication model is set to <code>bh</code> and the <code>max_pop_size</code> parameter is set, a threshold population size is overlaid and takes precedence over the Beverton-Holt population model.</p>
+<h2 id='infected_duration'>infected_duration</h2>
+<p>The <code>infected_duration</code> parameter specifies the average length of an infection.</p>
+<h1 id='fitness-model'>Fitness model</h1><h2 id='model_name-2'>model_name</h2><h2 id='host_ids-2'>host_ids</h2><h2 id='fitness_model'>fitness_model</h2><h2 id='fitness_model_path'>fitness_model_path</h2><h1 id='transmission-model'>Transmission model</h1><h2 id='model_name-3'>model_name</h2><h2 id='host_ids-3'>host_ids</h2><h2 id='mode'>mode</h2><h2 id='transmission_prob'>transmission_prob</h2><h2 id='transmission_size'>transmission_size</h2><h1 id='stop-conditions'>Stop conditions</h1><h2 id='condition'>condition</h2><h2 id='sequence'>sequence</h2><h2 id='position'>position</h2><h1 id='running-the-simulation'>Running the simulation</h1><h1 id='analyzing-data'>Analyzing data</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
 
 <span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
 <span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
