@@ -124,7 +124,7 @@ To mark the start of the simulation section, the section title is enclosed by sq
 
 The `epidemic_model` parameter specifies the type of epidemic model to simulate. Contagion uses the concept of a compartmental model to determine the status of each host in the simulation. During the simulation, a host can have only one status (belong to only one compartment) at every time step. The initial (default) state is the susceptible state. This indicates that the host is not currently infected. When a pathogen infects a host, the host moves from susceptible and enters the infected state. The duration of the infection can be determined using a transition probability, a definite assigned length, or depend on the fitness of infecting pathogens within the host. In some models, infection is chronic and persists throughout the simulation time, whereas others allow the host to remove the infection.
 
-Below are the list of epidemic models currently implemented in Contagion.
+### Epidemic models currently implemented in Contagion
 
 Keyword | Epidemic model | Description
 ------- | -------------- | -----------
@@ -253,16 +253,91 @@ Use absolute paths to indicate the location of the pathogen sequence file.
 
 # Intrahost model
 
-The intrahost model specifies the parameters that affect the behavior of pathogen within the host. The intrahost model
+The intrahost model specifies the parameters that affect the behavior of pathogen within the host.
 
 ## model_name
+
+The `model_name` parameter can be used to set a descriptive name to label the given intrahost model.
+
 ## host_ids
+
+The `host_ids` parameter specifies which hosts in the simulation will be associated to this particular intrahost model. To specify the hosts, the `host_ids` parameter takes on a list of one or more host IDs.
+
 ## mutation_rate
+
+The `mutation_rate` parameter defines the genetic mutation rate of the pathogen when infecting a host. The value of the `mutation_rate` parameter refers to the average mutation rate for each site and for each generation.
+
 ## transition_matrix
+
+The `transition_matrix` parameter specifies the transition rate matrix that the program will use to determine the identities of the new mutations. 
+
+To define a transition matrix, the program expects a nested list of lists where (1) each inner list is a row in the matrix, and (2) the number of elements of the inner list is equal to the number of inner lists such that it creates a square matrix.
+
+> Transition rate matrix for two characters (alleles):
+
+```toml
+transition_matrix = [ [ 0.0e+00, 1.0e-05 ], [ 1.0e-05, 0.0e+00 ] ]
+```
+
+> Reformats the transition matrix to look like a square matrix:
+
+```toml
+transition_matrix = [ 
+  [ 0.0e+00, 1.0e-05 ], 
+  [ 1.0e-05, 0.0e+00 ],
+]
+```
+
+For example you are modeling a sequence where each site can take on one of two states. This means that the transition matrix for this scheme should have two inner lists with each list having two values.
+
+The values within the inner lists must be floating-point numbers that contain a decimal point (.) among the digits. Without the decimal, whole numbers are automatically intepreted as integers. To declare a whole number as a floating-point type, a decimal must be appended at the end (for example `1.` or `1.0`).
+
+Values can be specified using the normal decimal notation (for example 1000.0) or by scientific notation (`1.0e3`). For values greater than the ones place value, the exponent of the value in the scientific notation can be written as signed (`1.0e+3`) or unsigned integers (`1.0e3`). On the other hand, for values less than one (0.001), the exponent is always negative and must be included (`1.0e-3`). 
+
+### Proper floating-point value formatting
+
+Number | Valid | Explanation
+------ | ----- | -----------
+`0` | False | Decimal point is missing. Number will be interpreted as an integer.
+`10` | False | Decimal point is missing. Number will be interpreted as an integer.
+`0.` | True | Trailing decimal point makes this number a floating-point type.
+`1.` | True | Trailing decimal point makes this number a floating-point type.
+`0.0` | True | Decimal point before the trailing zero makes this number a floating-point type.
+`10.2` | True | Decimal point before the digits makes this number a floating-point type.
+`0.1` | True | Decimal point after the leading zero makes this number a floating-point type.
+`.0` | True | Leading decimal point also makes this number a floating-point type.
+`.12` | True | Leading decimal point also makes this number a floating-point type.
+`1e1` | False | Written in scientific notation but decimal point is missing. Number will be interpreted as an integer.
+`1.0e2` | True | Written in scientific notation with a decimal point present.
+
+<aside class="warning">
+Transition matrix values must have a decimal point to be correctly interpreted.
+Contagion will return an error and not proceeed if all values in the specified transition matrix are not floating-point values.
+</aside>
+
 ## recombination_rate
+
+The `recombination_rate` parameter specifies the recombination rate between pathogen genomes that present within the host. The value of the `recombination_rate` parameter refers to the average number of recombination events per genome.
+
 ## replication_model
+
+The `replication_model` parameter sets the demographics of the pathogen population within the host. 
+
+### Available replication models 
+
+Keyword | Constant size | Description
+------- | ------------- | -----------
+`constant` | True | Constant population size within the host
+`bh` | False | Population size changes based on the Beverton-Holt population model. At high growth rates, the population size may suffer from periodic oscillations and may crash due to large fluctuations. If the `max_pop_size` parameter is set, the `max_pop_size` becomes the threshold population size such that the population size stays constant upon reaching the threshold number.
+`fitness` | False | Population size changes based on the growth rates computed from the sequence of the pathogens. This
+
 ## max_pop_size
+
+The `max_pop_size` parameter is an optional parameter that refers to the threshold population size or the population size under the constant replication model. If the replication model is set to `bh` and the `max_pop_size` parameter is set, a threshold population size is overlaid and takes precedence over the Beverton-Holt population model.
+
 ## infected_duration
+
+The `infected_duration` parameter specifies the average length of an infection.
 
 # Fitness model
 ## model_name
