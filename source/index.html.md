@@ -306,7 +306,7 @@ Number | Valid | Explanation
 `10.2` | True | Decimal point before the digits makes this number a floating-point type.
 `0.1` | True | Decimal point after the leading zero makes this number a floating-point type.
 `.0` | True | Leading decimal point also makes this number a floating-point type.
-`.12` | True | Leading decimal point also makes this number a floating-point type.
+`.12` | True | Leading decimal point also makes this number    a floating-point type.
 `1e1` | False | Written in scientific notation but decimal point is missing. Number will be interpreted as an integer.
 `1.0e2` | True | Written in scientific notation with a decimal point present.
 
@@ -340,14 +340,28 @@ The `max_pop_size` parameter is an optional parameter that refers to the thresho
 The `infected_duration` parameter specifies the average length of an infection.
 
 # Fitness model
+
 ## model_name
+
+The `model_name` parameter can be used to set a descriptive name to label the given fitness model.
+
 ## host_ids
+
+The `host_ids` parameter specifies which hosts in the simulation will be associated to this particular fitness model. To specify the hosts, the `host_ids` parameter takes on a list of one or more host IDs.
+
 ## fitness_model
 ## fitness_model_path
 
 # Transmission model
+
 ## model_name
+
+The `model_name` parameter can be used to set a descriptive name to label the given transmission model.
+
 ## host_ids
+
+The `host_ids` parameter specifies which hosts in the simulation will be associated to this particular transmission model. To specify the hosts, the `host_ids` parameter takes on a list of one or more host IDs.
+
 ## mode
 ## transmission_prob
 ## transmission_size
